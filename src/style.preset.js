@@ -1,11 +1,11 @@
-import {scaleSize, fontSize} from './size.preset';
+import { scaleSize, fontSize } from "./size.preset";
 
-const primary_color = '#FE3B32';
-const title_color = '#2C2C2C';
-const white_color = '#FFFFFF';
+const primary_color = "#06C149";
+const title_color = "#2C2C2C";
+const white_color = "#FFFFFF";
 const checkbox = {
-  alignItems: 'center',
-  justifyContent: 'center',
+  alignItems: "center",
+  justifyContent: "center",
   height: scaleSize(20),
   width: scaleSize(20),
   borderWidth: 1,
@@ -26,55 +26,55 @@ const buttons = {
   height: scaleSize(35),
   width: scaleSize(80),
   borderRadius: scaleSize(6),
-  justifyContent: 'center',
-  alignItems: 'center',
+  justifyContent: "center",
+  alignItems: "center",
   borderWidth: 1,
   marginHorizontal: 10,
 };
 const buttonTitle = {
-  fontWeight: '500',
+  fontWeight: "500",
   fontSize: fontSize(14),
 };
 const stylePreset = {
   itemOuter: {
-    borderBottomColor: '#f1f1f1',
+    borderBottomColor: "#f1f1f1",
     borderBottomWidth: 1,
     paddingVertical: scaleSize(3),
   },
   itemInner: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: scaleSize(10),
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
   },
   emptyOuter: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: scaleSize(150),
   },
   mainView: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: "rgba(0,0,0,0.7)",
   },
 
   outerView: {
     flex: 1,
-    alignItems: 'flex-end',
-    flexDirection: 'column',
+    alignItems: "flex-end",
+    flexDirection: "column",
   },
   listOuterView: {
-    backgroundColor: '#FFFFFF',
-    height: '70%',
-    width: '100%',
+    backgroundColor: "#FFFFFF",
+    height: "70%",
+    width: "100%",
   },
   buttonOuter: {
     paddingVertical: scaleSize(10),
-    borderBottomColor: '#63636333',
+    borderBottomColor: "#63636333",
     borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: scaleSize(10),
   },
   button: {
@@ -102,7 +102,7 @@ const stylePreset = {
   emptyTitle: {
     fontSize: fontSize(14),
     color: title_color,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   checkBox: {
     square: {
@@ -132,8 +132,8 @@ const stylePreset = {
         width: scaleSize(20),
       },
       check: {
-        height: '100%',
-        width: '100%',
+        height: "100%",
+        width: "100%",
         tintColor: primary_color,
       },
     },
@@ -142,21 +142,21 @@ const stylePreset = {
     check: {
       ...title,
       color: primary_color,
-      fontWeight: '500',
+      fontWeight: "500",
     },
     uncheck: {
       ...title,
       color: title_color,
-      fontWeight: '300',
+      fontWeight: "300",
     },
   },
 
   headingText: {
     flex: 1,
     fontSize: fontSize(15),
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: primary_color,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   searchOuter: {
@@ -164,24 +164,24 @@ const stylePreset = {
     marginBottom: scaleSize(5),
     borderWidth: 1,
     height: scaleSize(45),
-    alignItems: 'center',
+    alignItems: "center",
     paddingHorizontal: scaleSize(5),
     borderRadius: scaleSize(6),
-    borderColor: '#63636333',
-    flexDirection: 'row',
+    borderColor: "#63636333",
+    flexDirection: "row",
   },
   input: {
     paddingHorizontal: scaleSize(12),
-    fontWeight: '300',
+    fontWeight: "300",
     fontSize: fontSize(14),
-    color: '#000000',
+    color: "#000000",
     flex: 1,
   },
   searchCloseOuter: {
     height: scaleSize(35),
     width: scaleSize(25),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   close: {
     height: scaleSize(12),
