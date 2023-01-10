@@ -1,0 +1,38 @@
+{
+  "name": "selected-option-picker",
+  "version": "1.1.3",
+  "description": "A React Native component to pick the single or multiple options from a list.",
+  "main": "index.js",
+  "typings": "typings.d",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrokenHeartProgrammer/selected-option-picker.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "list selection",
+    "option select",
+    "option picker",
+    "selected-option-picker", 
+    "selected-option",
+    "option-picker",
+    "single option picker"
+  ],
+  "author": "Pankaj Kumar Prajapati",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BrokenHeartProgrammer/selected-option-picker.git/issues"
+  },
+  "homepage": "https://github.com/BrokenHeartProgrammer/selected-option-picker#readme",
+  "dependencies": {}
+}
