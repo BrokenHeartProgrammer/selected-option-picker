@@ -1,5 +1,9 @@
 /*
+ * @𝔸𝕞𝕚𝕥𝕪 𝕊𝕠𝕗𝕥𝕨𝕒𝕣𝕖 𝕊𝕪𝕤𝕥𝕖𝕞𝕤 𝕃𝕚𝕞𝕚𝕥𝕖𝕕
+ * 𝔼𝕞𝕡 𝕀𝕕: 𝔼_𝔽𝕠𝕦𝕣_𝔽𝕠𝕦𝕣_𝕊𝕚𝕩_ℕ𝕚𝕟𝕖
  * @𝔸𝕦𝕥𝕙𝕖𝕣: ℙ𝕒𝕟𝕜𝕒𝕛 𝕂𝕦𝕞𝕒𝕣 ℙ𝕣𝕒𝕛𝕒𝕡𝕒𝕥𝕚
+ * @𝔼𝕞𝕒𝕚𝕝: 𝕡𝕜𝕡𝕣𝕒𝕛𝕒𝕡𝕒𝕥𝕚𝟙𝟙𝟡𝟡𝟟@𝕘𝕞𝕒𝕚𝕝.𝕔𝕠𝕞
+  
  */
 import React, { useEffect, useState } from "react";
 import {
@@ -15,6 +19,15 @@ import {
 
 import { CheckBox, Default } from "./defaultPropsType";
 import stylePreset from "./style.preset";
+import {isValidData,
+isValidShowPicker,
+isValidAnimationType,
+isValidPreset,
+isValidCheckBoxType,
+isValidCheckBoxIcons,
+isValidEnableSeach,
+
+} from './Validations'
 export const SelectedOptionPicker = (props) => {
   const {
     data, // [] *
@@ -39,6 +52,14 @@ export const SelectedOptionPicker = (props) => {
     onCancelPress, // (){}
     onItemChange, // (item){}
   } = props;
+
+  isValidData(data);
+  isValidShowPicker(showPicker);
+  isValidAnimationType(animationType)
+  isValidPreset(preset)
+  isValidCheckBoxType(checkBoxType)
+  isValidCheckBoxIcons(checkBoxType,checkBoxIcons)
+  isValidEnableSeach(enableSearch)
   const picker_data = data || [];
   const picker_preset = preset || Default.Preset.SINGLE;
   const picker_height = pickerHeight || "70%";
@@ -115,7 +136,7 @@ export const SelectedOptionPicker = (props) => {
                 style={[
                   stylePreset.checkBox[check_box_type].check,
                   primaryColor && { tintColor: primaryColor },
-                  check_icon?.uri != null && { tintColor: null },
+                  check_icon?.uri !=null && { tintColor: null },
                 ]}
                 source={selected ? check_icon : uncheck_icon}
               />
