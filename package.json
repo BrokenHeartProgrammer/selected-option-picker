@@ -1,7 +1,7 @@
 {
   "name": "selected-option-picker",
   "version": "1.0.17",
-  "description": "This React-Native component library is created for the select single or multiple option from the list of options in Android/iOS.",
+  "description": "This React-Native component library is created for the selection of single or multiple item(s) from the list in Android/iOS.",
   "main": "index.js",
   "typings": "typings.d",
   "scripts": {
@@ -13,11 +13,8 @@
   },
   "keywords": [
     "react-native",
-    "react-component",
-    "react-native-component",
-    "react",
+    "react component",
     "react native",
-    "mobile",
     "ios",
     "android",
     "list selection",
@@ -27,7 +24,9 @@
     "react-native selected-option-picker", 
     "selected-option",
     "option-picker",
-    "single option picker"
+    "single option picker",
+    "multiple option picker",
+    "selection of item"
   ],
   "author": "Pankaj Kumar Prajapati",
   "license": "MIT",

@@ -1,5 +1,5 @@
 # selected-option-picker
-This React-Native component library is created for the select single or multiple option from the list of options in Android/iOS.
+This React-Native component library is created for the selection of single or multiple item(s) from the list in Android/iOS.
 
 ## Examples
 <p align="left">
@@ -34,13 +34,11 @@ Import library
 import SelectedOptionPicker from 'selected-option-picker';
 ```
 
-## Usage of the single or multiple value picker
-
 Create required state variables
 ```javascript
-const [showCountryPicker, setShowCountryPicker] = useState(false);
-const [selectedCountry, setSelectedCountry] = useState('');
-const [countryData, setCountryData] = useState([]);
+const [showPicker, setShowPicker] = useState(false);
+const [name, setName] = useState('');
+const [data, setData] = useState([]);
 ```
 Usage of the single value picker
 
@@ -52,18 +50,18 @@ Usage of the single value picker
   />
 
   <SelectedOptionPicker
-    showPicker={showCountryPicker} 
-    data={countryData} 
-    pickerTitle={'Select Country'} 
+    showPicker={showPicker} 
+    data={data} 
+    pickerTitle={'Select Name'} 
     checkBoxType={'circle'} 
     itemTitleKey={'name'} 
-    itemTitleValue={selectedCountry} 
+    itemTitleValue={name.name} 
     enableSearch={true} 
-    searchPlaceholder={'Search country'} 
+    searchPlaceholder={'Search name'} 
     emptyTitle={'No Country(s) Found'} 
-    onDonePress={() => setShowCountryPicker(false)} 
-    onCancelPress={() => setShowCountryPicker(false)} 
-    onItemChange={item => setSelectedCountry(item.name)} 
+    onDonePress={() => setShowPicker(false)} 
+    onCancelPress={() => setShowPicker(false)} 
+    onItemChange={item => setName(item)} 
   />
 </View>
 ```
@@ -93,7 +91,13 @@ Usage of the single value picker
 | `onItemChange`           | **Yes**      | callback function | A callback function to return the selected item when selection of item changed in the list |
 | `onCancelPress`            | **Yes**      | function | This function called when cancel button pressed in picker |
 
+## TO DO
 
+- [ ] [Android/iOS] Provide the pagination for the long list
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
 
 ## License
 *MIT*
