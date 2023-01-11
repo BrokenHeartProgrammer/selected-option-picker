@@ -5,8 +5,10 @@ This React-Native component library is created for the selection of single or mu
 <p align="left">
   <img width=200 title="Circle Checkbox in iOS" src="https://github.com/BrokenHeartProgrammer/selected-option-picker/blob/master/src/images/iOS Circle Check.png">
   <img width=200 title="Squire Checkbox in iOS" src="https://github.com/BrokenHeartProgrammer/selected-option-picker/blob/master/src/images/iOS Square Check.png">
-  <img width=200 title="Icon Checkbox with search in iOS" src="https://github.com/BrokenHeartProgrammer/selected-option-picker/blob/master/src/images/iOS Icon Check with Search.png">
+  <img width=200 title="Icon Checkbox with search in iOS" src="https://github.com/BrokenHeartProgrammer/selected-option-picker/blob/master/src/images/iOS Icon Multiple check.png">
 </p>
+
+
 
 # Install
 
