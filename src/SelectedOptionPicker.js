@@ -19,15 +19,15 @@ import {
 
 import { CheckBox, Default } from "./defaultPropsType";
 import stylePreset from "./style.preset";
-import {isValidData,
-isValidShowPicker,
-isValidAnimationType,
-isValidPreset,
-isValidCheckBoxType,
-isValidCheckBoxIcons,
-isValidEnableSeach,
-
-} from './Validations'
+import {
+  isValidData,
+  isValidShowPicker,
+  isValidAnimationType,
+  isValidPreset,
+  isValidCheckBoxType,
+  isValidCheckBoxIcons,
+  isValidEnableSeach,
+} from "./Validations";
 export const SelectedOptionPicker = (props) => {
   const {
     data, // [] *
@@ -55,11 +55,11 @@ export const SelectedOptionPicker = (props) => {
 
   isValidData(data);
   isValidShowPicker(showPicker);
-  isValidAnimationType(animationType)
-  isValidPreset(preset)
-  isValidCheckBoxType(checkBoxType)
-  isValidCheckBoxIcons(checkBoxType,checkBoxIcons)
-  isValidEnableSeach(enableSearch)
+  isValidAnimationType(animationType);
+  isValidPreset(preset);
+  isValidCheckBoxType(checkBoxType);
+  isValidCheckBoxIcons(checkBoxType, checkBoxIcons);
+  isValidEnableSeach(enableSearch);
   const picker_data = data || [];
   const picker_preset = preset || Default.Preset.SINGLE;
   const picker_height = pickerHeight || "70%";
@@ -71,12 +71,14 @@ export const SelectedOptionPicker = (props) => {
   const empty_title = emptyTitle || Default.Value.EMPTY_TITLE;
   const search_placeholder = searchPlaceholder || Default.Search.PLACEHOLDER;
 
+  const isMultiple = picker_preset === "multiple";
   const [searchText, setSearchText] = useState("");
   const [filterData, setFilterData] = useState([]);
+  const [multipleData, setMultipleData] = useState([]);
   const listRef = React.useRef();
 
   useEffect(() => {
-    if (picker_data?.length) {
+    if (!isMultiple && picker_data?.length) {
       const index = picker_data.findIndex(
         (item) => item[itemTitleKey] == itemTitleValue
       );
@@ -101,6 +103,21 @@ export const SelectedOptionPicker = (props) => {
     setFilterData(filter);
   };
 
+  const multipleSelection = (item, index, isSelected) => {
+    if (multipleData.length > 0 && isSelected) {
+      let multiple = [...multipleData];
+      const deleteIndex = multipleData.findIndex((e) => e === item);
+      multiple.splice(deleteIndex, 1);
+      setMultipleData(multiple);
+    } else {
+      let multiple = [...multipleData];
+      multiple.push(item);
+      setMultipleData(multiple);
+    }
+  };
+  const singleSelection = (item) => {
+    onItemChange(item);
+  };
   const EmptyList = () => {
     return (
       <View style={stylePreset.emptyOuter}>
@@ -110,13 +127,22 @@ export const SelectedOptionPicker = (props) => {
   };
 
   const RenderListItem = (item, index) => {
-    let selected = item[itemTitleKey] == itemTitleValue;
+    let selected = false;
+    if (isMultiple) {
+      selected = multipleData.includes(item);
+    } else {
+      selected = item[itemTitleKey] == itemTitleValue;
+    }
 
     return (
       <View style={stylePreset.itemOuter}>
         <TouchableOpacity
           activeOpacity={0.5}
-          onPress={() => onItemChange(item)}
+          onPress={() => {
+            isMultiple
+              ? multipleSelection(item, index, selected)
+              : singleSelection(item);
+          }}
           style={stylePreset.itemInner}
         >
           <TouchableOpacity
@@ -129,14 +155,18 @@ export const SelectedOptionPicker = (props) => {
                   }
                 : { borderColor: selected ? "#06C149" : "#2C2C2C" },
             ]}
-            onPress={() => onItemChange(item)}
+            onPress={() => {
+              isMultiple
+                ? multipleSelection(item, index, selected)
+                : singleSelection(item);
+            }}
           >
             {check_box_type === CheckBox.Type.ICON && (
               <Image
                 style={[
                   stylePreset.checkBox[check_box_type].check,
                   primaryColor && { tintColor: primaryColor },
-                  check_icon?.uri !=null && { tintColor: null },
+                  check_icon?.uri != null && { tintColor: null },
                 ]}
                 source={selected ? check_icon : uncheck_icon}
               />
@@ -188,6 +218,7 @@ export const SelectedOptionPicker = (props) => {
               <TouchableOpacity
                 activeOpacity={0.5}
                 onPress={() => {
+                  isMultiple ? setMultipleData([]) : "";
                   setSearchText("");
                   onCancelPress();
                 }}
@@ -218,7 +249,8 @@ export const SelectedOptionPicker = (props) => {
                 activeOpacity={0.5}
                 onPress={() => {
                   setSearchText("");
-                  onDonePress();
+
+                  isMultiple ? onDonePress(multipleData) : onDonePress();
                 }}
                 style={[
                   stylePreset.button["primary"],
@@ -266,13 +298,17 @@ export const SelectedOptionPicker = (props) => {
                 index.toString() + "list Items" + item.id
               }
               onScrollToIndexFailed={(info) => {
-                const wait = new Promise((resolve) => setTimeout(resolve, 500));
-                wait.then(() => {
-                  listRef.current?.scrollToIndex({
-                    index: info.index,
-                    animated: true,
+                if (!isMultiple) {
+                  const wait = new Promise((resolve) =>
+                    setTimeout(resolve, 500)
+                  );
+                  wait.then(() => {
+                    listRef.current?.scrollToIndex({
+                      index: info.index,
+                      animated: true,
+                    });
                   });
-                });
+                }
               }}
             />
           </View>

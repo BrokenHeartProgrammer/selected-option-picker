@@ -1,6 +1,6 @@
 {
   "name": "selected-option-picker",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "This React-Native component library is created for the selection of single or multiple item(s) from the list in Android/iOS.",
   "main": "index.js",
   "typings": "typings.d",
