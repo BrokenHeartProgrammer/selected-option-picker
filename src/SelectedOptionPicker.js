@@ -5,32 +5,36 @@
  * @𝔼𝕞𝕒𝕚𝕝: 𝕡𝕜𝕡𝕣𝕒𝕛𝕒𝕡𝕒𝕥𝕚𝟙𝟙𝟡𝟡𝟟@𝕘𝕞𝕒𝕚𝕝.𝕔𝕠𝕞
   
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
-  FlatList, Image, Modal,
-  SafeAreaView, Text, TextInput, TouchableOpacity,
-  View
-} from 'react-native';
+  FlatList,
+  Image,
+  Modal,
+  SafeAreaView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-
-import { CheckBox, Default } from './defaultPropsType';
-import stylePreset from './style.preset';
-export const SelectedOptionPicker = props => {
+import { CheckBox, Default } from "./defaultPropsType";
+import stylePreset from "./style.preset";
+export const SelectedOptionPicker = (props) => {
   const {
+    data, // [] *
     showPicker, // boolean *
     pickerHeight, // height
     animationType, // 'slide' | 'fade' | 'none'
     preset, //'single' | 'multiple'
-    PickerTitle, // 'Select Option'
+    pickerTitle, // 'Select Option'
 
     primaryColor, // 'color'
     checkBoxType, // CheckBox.Type
     checkBoxIcons, // {check:image,uncheck:image}
 
-    itemTitleKey, // 'String'
-    itemTitleValue, // ''
+    itemTitleKey, // 'String'*
+    itemTitleValue, // ''*
     itemTitleStyle, // {Style}
-    itemTitleComponent, // React Component
 
     enableSearch, // boloean
     searchPlaceholder, //'String'
@@ -39,9 +43,10 @@ export const SelectedOptionPicker = props => {
     onCancelPress, // (){}
     onItemChange, // (item){}
   } = props;
+  const picker_data = data || [];
   const picker_preset = preset || Default.Preset.SINGLE;
-  const picker_height = pickerHeight || '70%';
-  const picker_title = PickerTitle || Default.Value.PICKER_TITLE;
+  const picker_height = pickerHeight || "70%";
+  const picker_title = pickerTitle || Default.Value.PICKER_TITLE;
   const animation_type = animationType || Default.Animation.SLIDE;
   const check_box_type = checkBoxType || CheckBox.Type.SQUARE;
   const check_icon = checkBoxIcons?.check || Default.Icon.CHECK;
@@ -49,14 +54,14 @@ export const SelectedOptionPicker = props => {
   const empty_title = emptyTitle || Default.Value.EMPTY_TITLE;
   const search_placeholder = searchPlaceholder || Default.Search.PLACEHOLDER;
 
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [filterData, setFilterData] = useState([]);
   const listRef = React.useRef();
 
   useEffect(() => {
-    if (props.data?.length) {
-      const index = props.data.findIndex(
-        item => item[itemTitleKey] == itemTitleValue,
+    if (picker_data?.length) {
+      const index = picker_data.findIndex(
+        (item) => item[itemTitleKey] == itemTitleValue
       );
       if (showPicker && index > -1) {
         listRef.current?.scrollToIndex({
@@ -67,12 +72,12 @@ export const SelectedOptionPicker = props => {
     }
   }, [showPicker]);
 
-  const onSearchChangeText = text => {
+  const onSearchChangeText = (text) => {
     setSearchText(text);
-    const filter = props.data.filter(item => {
-      const itemData = item[props.titleName]
-        ? item[props.titleName].toUpperCase()
-        : ''.toUpperCase();
+    const filter = picker_data?.filter((item) => {
+      const itemData = item[itemTitleKey]
+        ? item[itemTitleKey].toUpperCase()
+        : "".toUpperCase();
       const textData = text.toUpperCase().trim();
       return itemData.indexOf(textData) > -1;
     });
@@ -95,23 +100,26 @@ export const SelectedOptionPicker = props => {
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => onItemChange(item)}
-          style={stylePreset.itemInner}>
+          style={stylePreset.itemInner}
+        >
           <TouchableOpacity
             activeOpacity={0.5}
             style={[
               stylePreset.checkBox[check_box_type].uncheck,
               primaryColor
                 ? {
-                    borderColor: selected ? primaryColor : '#2C2C2C',
+                    borderColor: selected ? primaryColor : "#2C2C2C",
                   }
-                : {borderColor: selected ? '#FE3B32' : '#2C2C2C'},
+                : { borderColor: selected ? "#06C149" : "#2C2C2C" },
             ]}
-            onPress={() => props.onChange(item)}>
+            onPress={() => onItemChange(item)}
+          >
             {check_box_type === CheckBox.Type.ICON && (
               <Image
                 style={[
                   stylePreset.checkBox[check_box_type].check,
-                  primaryColor && {tintColor: primaryColor},
+                  primaryColor && { tintColor: primaryColor },
+                  check_icon?.uri != null && { tintColor: null },
                 ]}
                 source={selected ? check_icon : uncheck_icon}
               />
@@ -120,24 +128,22 @@ export const SelectedOptionPicker = props => {
               <View
                 style={[
                   stylePreset.checkBox[check_box_type].check,
-                  primaryColor && {backgroundColor: primaryColor},
+                  primaryColor && { backgroundColor: primaryColor },
                 ]}
               />
             )}
           </TouchableOpacity>
-          {itemTitleComponent ? (
-            itemTitleComponent
-          ) : (
-            <Text
-              style={[
-                stylePreset.itemTitle[selected ? 'check' : 'uncheck'],
-                {...itemTitleStyle},
-                primaryColor && {color: primaryColor},
-                !selected && {color: '#2c2c2c'},
-              ]}>
-              {item[itemTitleKey]}
-            </Text>
-          )}
+
+          <Text
+            style={[
+              stylePreset.itemTitle[selected ? "check" : "uncheck"],
+              { ...itemTitleStyle },
+              primaryColor && { color: primaryColor },
+              !selected && { color: "#2c2c2c" },
+            ]}
+          >
+            {item[itemTitleKey]}
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -148,55 +154,61 @@ export const SelectedOptionPicker = props => {
       animationType={animation_type}
       transparent={true}
       visible={showPicker}
-      style={{flex: 1}}>
+      style={{ flex: 1 }}
+    >
       <SafeAreaView style={stylePreset.mainView}>
         <View style={stylePreset.outerView}>
-          <View style={{flex: 1}} />
+          <View style={{ flex: 1 }} />
           <View
             style={[
               stylePreset.listOuterView,
               {
                 height: picker_height,
               },
-            ]}>
+            ]}
+          >
             <View style={stylePreset.buttonOuter}>
               <TouchableOpacity
                 activeOpacity={0.5}
                 onPress={() => {
-                  setSearchText('');
+                  setSearchText("");
                   onCancelPress();
                 }}
                 style={[
-                  stylePreset.button['secondary'],
-                  primaryColor && {borderColor: primaryColor},
-                ]}>
+                  stylePreset.button["secondary"],
+                  primaryColor && { borderColor: primaryColor },
+                ]}
+              >
                 <Text
                   style={[
-                    stylePreset.buttonTitle['secondary'],
-                    primaryColor && {color: primaryColor},
-                  ]}>
-                  {'Cancel'}
+                    stylePreset.buttonTitle["secondary"],
+                    primaryColor && { color: primaryColor },
+                  ]}
+                >
+                  {"Cancel"}
                 </Text>
               </TouchableOpacity>
 
               <Text
                 style={[
                   stylePreset.headingText,
-                  primaryColor && {color: primaryColor},
-                ]}>
+                  primaryColor && { color: primaryColor },
+                ]}
+              >
                 {picker_title}
               </Text>
               <TouchableOpacity
                 activeOpacity={0.5}
                 onPress={() => {
-                  setSearchText('');
+                  setSearchText("");
                   onDonePress();
                 }}
                 style={[
-                  stylePreset.button['primary'],
-                  primaryColor && {backgroundColor: primaryColor},
-                ]}>
-                <Text style={stylePreset.buttonTitle['primary']}>{'Done'}</Text>
+                  stylePreset.button["primary"],
+                  primaryColor && { backgroundColor: primaryColor },
+                ]}
+              >
+                <Text style={stylePreset.buttonTitle["primary"]}>{"Done"}</Text>
               </TouchableOpacity>
             </View>
 
@@ -207,17 +219,18 @@ export const SelectedOptionPicker = props => {
                   style={stylePreset.input}
                   value={searchText}
                   maxLength={50}
-                  onChangeText={text => onSearchChangeText(text)}
+                  onChangeText={(text) => onSearchChangeText(text)}
                 />
-                {searchText !== '' ? (
+                {searchText !== "" ? (
                   <TouchableOpacity
                     activeOpacity={0.5}
                     style={stylePreset.searchCloseOuter}
                     onPress={() => {
-                      setSearchText('');
-                    }}>
+                      setSearchText("");
+                    }}
+                  >
                     <Image
-                      source={require('./assets/cross.png')}
+                      source={require("./assets/cross.png")}
                       style={stylePreset.close}
                     />
                   </TouchableOpacity>
@@ -227,16 +240,16 @@ export const SelectedOptionPicker = props => {
 
             <FlatList
               ref={listRef}
-              data={searchText === '' ? props.data : filterData}
+              data={searchText === "" ? picker_data : filterData}
               bounces={false}
-              style={{marginHorizontal: 10}}
+              style={{ marginHorizontal: 10 }}
               ListEmptyComponent={<EmptyList />}
-              renderItem={({item, index}) => RenderListItem(item, index)}
+              renderItem={({ item, index }) => RenderListItem(item, index)}
               keyExtractor={(item, index) =>
-                index.toString() + 'list Items' + item.id
+                index.toString() + "list Items" + item.id
               }
-              onScrollToIndexFailed={info => {
-                const wait = new Promise(resolve => setTimeout(resolve, 500));
+              onScrollToIndexFailed={(info) => {
+                const wait = new Promise((resolve) => setTimeout(resolve, 500));
                 wait.then(() => {
                   listRef.current?.scrollToIndex({
                     index: info.index,
@@ -248,7 +261,7 @@ export const SelectedOptionPicker = props => {
           </View>
         </View>
       </SafeAreaView>
-      <SafeAreaView style={{backgroundColor: '#FFFFFF'}} />
+      <SafeAreaView style={{ backgroundColor: "#FFFFFF" }} />
     </Modal>
   );
 };
