@@ -56,6 +56,8 @@ Usage of the single value picker
     checkBoxType={'circle'} 
     itemTitleKey={'name'} 
     itemTitleValue={name.name} 
+    itemUniqueKey={'id'}
+    itemUniqueValue={name.id}
     enableSearch={true} 
     searchPlaceholder={'Search name'} 
     emptyTitle={'No Country(s) Found'} 
