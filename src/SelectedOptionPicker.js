@@ -1,10 +1,8 @@
 /*
- * @𝔸𝕞𝕚𝕥𝕪 𝕊𝕠𝕗𝕥𝕨𝕒𝕣𝕖 𝕊𝕪𝕤𝕥𝕖𝕞𝕤 𝕃𝕚𝕞𝕚𝕥𝕖𝕕
- * 𝔼𝕞𝕡 𝕀𝕕: 𝔼_𝔽𝕠𝕦𝕣_𝔽𝕠𝕦𝕣_𝕊𝕚𝕩_ℕ𝕚𝕟𝕖
- * @𝔸𝕦𝕥𝕙𝕖𝕣: ℙ𝕒𝕟𝕜𝕒𝕛 𝕂𝕦𝕞𝕒𝕣 ℙ𝕣𝕒𝕛𝕒𝕡𝕒𝕥𝕚
- * @𝔼𝕞𝕒𝕚𝕝: 𝕡𝕜𝕡𝕣𝕒𝕛𝕒𝕡𝕒𝕥𝕚𝟙𝟙𝟡𝟡𝟟@𝕘𝕞𝕒𝕚𝕝.𝕔𝕠𝕞
-  
+ @ 𝔸𝕦𝕥𝕙𝕠𝕣: ℙ𝕒𝕟𝕜𝕒𝕛 𝕂𝕦𝕞𝕒𝕣 ℙ𝕣𝕒𝕛𝕒𝕡𝕒𝕥𝕚
+ @ 𝔽𝕚𝕝𝕖 ℕ𝕒𝕞𝕖: SelectedOptionPicker.js
  */
+
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
@@ -44,6 +42,8 @@ export const SelectedOptionPicker = (props) => {
     itemTitleKey, // 'String'*
     itemTitleValue, // ''*
     itemTitleStyle, // {Style}
+    itemUniqueKey, // 'String'
+    itemUniqueValue, // 'String'
 
     enableSearch, // boloean
     searchPlaceholder, //'String'
@@ -53,13 +53,6 @@ export const SelectedOptionPicker = (props) => {
     onItemChange, // (item){}
   } = props;
 
-  isValidData(data);
-  isValidShowPicker(showPicker);
-  isValidAnimationType(animationType);
-  isValidPreset(preset);
-  isValidCheckBoxType(checkBoxType);
-  isValidCheckBoxIcons(checkBoxType, checkBoxIcons);
-  isValidEnableSeach(enableSearch);
   const picker_data = data || [];
   const picker_preset = preset || Default.Preset.SINGLE;
   const picker_height = pickerHeight || "70%";
@@ -70,6 +63,7 @@ export const SelectedOptionPicker = (props) => {
   const uncheck_icon = checkBoxIcons?.uncheck || Default.Icon.UNCHEK;
   const empty_title = emptyTitle || Default.Value.EMPTY_TITLE;
   const search_placeholder = searchPlaceholder || Default.Search.PLACEHOLDER;
+  const enable_serach = enableSearch || false;
 
   const isMultiple = picker_preset === "multiple";
   const [searchText, setSearchText] = useState("");
@@ -77,6 +71,13 @@ export const SelectedOptionPicker = (props) => {
   const [multipleData, setMultipleData] = useState([]);
   const listRef = React.useRef();
 
+  isValidData(picker_data);
+  isValidShowPicker(showPicker);
+  isValidAnimationType(animation_type);
+  isValidPreset(picker_preset);
+  isValidCheckBoxType(check_box_type);
+  isValidCheckBoxIcons(check_box_type, checkBoxIcons);
+  isValidEnableSeach(enable_serach);
   useEffect(() => {
     if (!isMultiple && picker_data?.length) {
       const index = picker_data.findIndex(
@@ -131,7 +132,7 @@ export const SelectedOptionPicker = (props) => {
     if (isMultiple) {
       selected = multipleData.includes(item);
     } else {
-      selected = item[itemTitleKey] == itemTitleValue;
+      selected = item[itemUniqueKey] == itemUniqueValue;
     }
 
     return (
@@ -261,7 +262,7 @@ export const SelectedOptionPicker = (props) => {
               </TouchableOpacity>
             </View>
 
-            {enableSearch && (
+            {enable_serach && (
               <View style={stylePreset.searchOuter}>
                 <TextInput
                   placeholder={search_placeholder}
